@@ -1,0 +1,114 @@
+﻿  main.cpp
+C:\Users\Bayley\source\repos\SFML_Base\SFML_Base\main.cpp(32,67): warning C4244: 'argument': conversion from 'unsigned int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Bayley\source\repos\SFML_Base\SFML_Base\main.cpp(32,51): warning C4244: 'argument': conversion from 'unsigned int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Bayley\source\repos\SFML_Base\SFML_Base\main.cpp(33,73): warning C4244: 'argument': conversion from 'unsigned int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Bayley\source\repos\SFML_Base\SFML_Base\main.cpp(33,57): warning C4244: 'argument': conversion from 'unsigned int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Bayley\source\repos\SFML_Base\SFML_Base\main.cpp(34,79): warning C4244: 'argument': conversion from 'unsigned int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Bayley\source\repos\SFML_Base\SFML_Base\main.cpp(34,57): warning C4244: 'argument': conversion from 'unsigned int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Bayley\source\repos\SFML_Base\SFML_Base\main.cpp(35,73): warning C4244: 'argument': conversion from 'unsigned int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Bayley\source\repos\SFML_Base\SFML_Base\main.cpp(35,51): warning C4244: 'argument': conversion from 'unsigned int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Bayley\source\repos\SFML_Base\SFML_Base\main.cpp(38,70): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\Bayley\source\repos\SFML_Base\SFML_Base\main.cpp(38,53): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\Bayley\source\repos\SFML_Base\SFML_Base\main.cpp(39,76): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\Bayley\source\repos\SFML_Base\SFML_Base\main.cpp(39,59): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\Bayley\source\repos\SFML_Base\SFML_Base\main.cpp(40,82): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\Bayley\source\repos\SFML_Base\SFML_Base\main.cpp(40,59): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\Bayley\source\repos\SFML_Base\SFML_Base\main.cpp(41,76): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\Bayley\source\repos\SFML_Base\SFML_Base\main.cpp(41,53): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+  SFML_Base.vcxproj -> C:\Users\Bayley\source\repos\SFML_Base\Debug\SFML_Base.exe
