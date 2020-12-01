@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include "mainScreen.h"
 
 class TileMap : public sf::Drawable, public sf::Transformable
 {
@@ -64,7 +65,7 @@ private:
 int main()
 {
     // create the window
-    sf::RenderWindow window(sf::VideoMode(576, 576), "Tilemap");
+    sf::RenderWindow window(sf::VideoMode(1024, 768), "Maze Game Xtreme");
 
     // define the level with an array of tile indices
     const int level[] =
@@ -104,6 +105,7 @@ int main()
     sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
     sprite.setPosition(64*7 +16, 64*1 + 16); 
 
+    mainScreen main;
 
     // run the main loop
     while (window.isOpen())
@@ -118,29 +120,46 @@ int main()
 
         // draw the map
         window.clear();
-        window.draw(map);
-        window.draw(sprite);
+        
+        /*window.draw(main.title);*/
+        window.draw(main.startButton);
+        window.draw(main.howToButton);
+        window.draw(main.exitButton);
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+        if (main.checkIfExit(window))
         {
-            sprite.move(0, .25);
-            sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
+            window.close();
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+        if (main.checkIfStart(window))
         {
-            sprite.move(0, -.25);
-            sprite.setTextureRect(sf::IntRect(32, 0, 32, 32));
+            window.clear();
+
+            window.draw(map);
+            window.draw(sprite);
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+            {
+                sprite.move(0, .25);
+                sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+            {
+                sprite.move(0, -.25);
+                sprite.setTextureRect(sf::IntRect(32, 0, 32, 32));
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+            {
+                sprite.move(-.25, 0);
+                sprite.setTextureRect(sf::IntRect(64, 0, 32, 32));
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+            {
+                sprite.move(.25, 0);
+                sprite.setTextureRect(sf::IntRect(96, 0, 32, 32));
+            }
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-        {
-            sprite.move(-.25,0);
-            sprite.setTextureRect(sf::IntRect(64, 0, 32, 32));
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-        {
-            sprite.move(.25, 0);
-            sprite.setTextureRect(sf::IntRect(96, 0, 32, 32));
-        }
+
+        
 
         window.display();
     }
