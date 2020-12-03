@@ -3,22 +3,21 @@
 #define mainScreen_h
 
 #include <SFML/Graphics.hpp>
-#include <iostream>
+#include "screen.h"
 
-class mainScreen
+class mainScreen : public Screen
 {
 private:
 	sf::Texture buttonSet;
-	bool startGame;
-	bool howToPage;
-public:
-	sf::Sprite backgroundMain;
 	sf::Sprite startButton;
 	sf::Sprite howToButton;
 	sf::Sprite exitButton;
-	
+protected:
+	bool startGame;
+	bool howToPage;
+public:
 
-	mainScreen()
+	mainScreen(int BGnum = 0) : Screen(BGnum)
 	{
 		buttonSet.loadFromFile("Resources/ButtonSet.png");
 
@@ -35,6 +34,7 @@ public:
 		exitButton.setPosition(320, 648);
 
 		startGame = false;
+		howToPage = false;
 	}
 
 	void makeActive(sf::RenderWindow& window)
@@ -74,15 +74,18 @@ public:
 
 	bool checkIfStart(sf::RenderWindow& window)
 	{
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		if (!startGame)
 		{
-			if (startButton.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
-				startGame = true;
-			}
-			else
-			{
-				return false;
+				if (startButton.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+				{
+					startGame = true;
+				}
+				else
+				{
+					return false;
+				}
 			}
 		}
 		return startGame;
@@ -95,15 +98,18 @@ public:
 
 	bool checkIfHowTo(sf::RenderWindow &window)
 	{
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		if (!startGame)
 		{
-			if (howToButton.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
-				howToPage = true;
-			}
-			else
-			{
-				howToPage = false;
+				if (howToButton.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+				{
+					howToPage = true;
+				}
+				else
+				{
+					howToPage = false;
+				}
 			}
 		}
 		return howToPage;
@@ -116,17 +122,17 @@ public:
 
 	bool checkIfExit(sf::RenderWindow &window)
 	{
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		if (!startGame)
 		{
-			if (exitButton.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
-				return true;
-			}
-			else
-			{
-				return false;
+				if (exitButton.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+				{
+					return true;
+				}
 			}
 		}
+		return false;
 	}
 
 };

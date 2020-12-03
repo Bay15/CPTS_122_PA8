@@ -1,11 +1,15 @@
 #include <SFML/Graphics.hpp>
 #include "mainScreen.h"
+#include "pauseScreen.h"
+#include "player.h"
 
 int main()
 {
     // create the window
     sf::RenderWindow window(sf::VideoMode(1024, 768), "Maze Game Xtreme");
-    mainScreen main;
+    mainScreen main(0);
+    pauseScreen pause(2);
+    player player1;
 
     while (window.isOpen())
     {
@@ -28,8 +32,21 @@ int main()
             //Playgame
             window.clear();
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) //makes them leave the game
+            window.draw(player1.player_entity);
+            if (!pause.checkIfPaused())
             {
+                player1.move();
+            }
+
+
+            if (pause.pauseScreenGame(window))
+            {
+                pause.makePauseScreen(window);
+            }
+            else if (pause.checkIfExit())
+            {
+                pause.setExit(false);
+                pause.setPause(false);
                 main.setStart(false);
                 window.clear();
             }
@@ -38,7 +55,8 @@ int main()
         {
             //show how to page
             window.clear();
-
+            main.setBG(1);
+            main.makeBackground(window);
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
             {
