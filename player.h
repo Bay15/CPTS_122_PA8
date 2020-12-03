@@ -23,29 +23,28 @@ class player
 
         void move() 
         {
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
             {
                 player_entity.move(0, .25);
                 player_entity.setTextureRect(sf::IntRect(0, 0, 32, 32));
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
             {
                 player_entity.move(0, -.25);
                 player_entity.setTextureRect(sf::IntRect(32, 0, 32, 32));
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
             {
-                player_entity.move(-.25, .25);
+                player_entity.move(-.25, 0);
                 player_entity.setTextureRect(sf::IntRect(64, 0, 32, 32));
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
             {
                 player_entity.move(.25, 0);
                 player_entity.setTextureRect(sf::IntRect(96, 0, 32, 32));
             }
         }
 };
-
 
 #endif
 
