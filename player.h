@@ -6,59 +6,46 @@
 
 class player 
 {
-	private:
-		
-		int health;
-		int x_coordinate;
-		int y_coordinate;
-		
-	public:
+    public:
+   
+        sf::Sprite player_entity;
+        sf::Texture player_texture;
 
-		player() 
-		{
-			//sets coordinates to starting position
-		}
+        bool alive;
 
-		void move(char command) 
-		{
-			if (command == 'w')
-			{
-				move_up();
-			}
-			else if (command == 'a')
-			{
-				move_left();
-			}
-			else if (command == 's')
-			{
-				move_down();
-			}
-			else if (command == 'd')
-			{
-				move_right();
-			}
-		}
+        player() 
+        {
+            player_texture.loadFromFile("BlopSheet.png");
+            player_entity.setTexture(player_texture);
+            player_entity.setTextureRect(sf::IntRect(0, 0, 32, 32));
+            player_entity.setPosition(64 * 7 + 16, 64 * 1 + 16);
+        }
 
-		void move_up() 
-		{
-			y_coordinate -= 5; //move up 5 pixels
-		}
-
-		void move_down()
-		{
-			y_coordinate += 5; //move down 5 pixels
-		}
-
-		void move_right()
-		{
-			x_coordinate += 5; //move right 5 pixels
-		}
-
-		void move_left()
-		{
-			x_coordinate -= 5; //move left 5 pixels
-		}
+        void move() 
+        {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+            {
+                player_entity.move(0, .25);
+                player_entity.setTextureRect(sf::IntRect(0, 0, 32, 32));
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+            {
+                player_entity.move(0, -.25);
+                player_entity.setTextureRect(sf::IntRect(32, 0, 32, 32));
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+            {
+                player_entity.move(-.25, .25);
+                player_entity.setTextureRect(sf::IntRect(64, 0, 32, 32));
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+            {
+                player_entity.move(.25, 0);
+                player_entity.setTextureRect(sf::IntRect(96, 0, 32, 32));
+            }
+        }
 };
+
 
 #endif
 
