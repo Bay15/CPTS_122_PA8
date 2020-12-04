@@ -1,50 +1,164 @@
+#include "Platform/Platform.hpp"
 #include <iostream>
-#define using namespace std;
 
 #ifndef PLAYER_H
-#define PLAYER_H
+	#define PLAYER_H
 
-class player 
+class player : public Entity
 {
-    public:
-   
-        sf::Sprite player_entity;
-        sf::Texture player_texture;
+public:
+	//sf::Sprite player_entity;
 
-        bool alive;
+	int direction;
+	bool can_move_up, can_move_down, can_move_right, can_move_left;
+	bool alive;
+	bool win;
+	int playerspeed;
+	player()
+	{
+		texture.loadFromFile("src\\images\\BlobSheet.png");
+		sprite.setTexture(texture);
+		sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
+		sprite.setPosition(64 + 16, 64 + 16); //starting position
+		direction = -1;
+		can_move_down = true;
+		can_move_up = true;
+		can_move_right = true;
+		can_move_left = true;
+		alive = true;
+		win = false;
+		playerspeed = 2;
+		//rect.setSize(sf::Vector2f(32, 32));
+	}
 
-        player() 
-        {
-            player_texture.loadFromFile("BlopSheet.png");
-            player_entity.setTexture(player_texture);
-            player_entity.setTextureRect(sf::IntRect(0, 0, 32, 32));
-            player_entity.setPosition(64 * 7 + 16, 64 * 1 + 16);
-        }
+	bool colide(std::vector<wall> Array, int counter)
+	{
+		if (sprite.getGlobalBounds().intersects(Array[counter].rect.getGlobalBounds()))
+			return true;
 
-        void move() 
-        {
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-            {
-                player_entity.move(0, .25);
-                player_entity.setTextureRect(sf::IntRect(0, 0, 32, 32));
-            }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-            {
-                player_entity.move(0, -.25);
-                player_entity.setTextureRect(sf::IntRect(32, 0, 32, 32));
-            }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-            {
-                player_entity.move(-.25, 0);
-                player_entity.setTextureRect(sf::IntRect(64, 0, 32, 32));
-            }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-            {
-                player_entity.move(.25, 0);
-                player_entity.setTextureRect(sf::IntRect(96, 0, 32, 32));
-            }
-        }
+		return false;
+	}
+
+	void can_move(std::vector<wall> wallArray)
+	{
+		bool hit;
+		int counter = 0;
+		std::vector<wall>::const_iterator iter1;
+		for (iter1 = wallArray.begin(); iter1 != wallArray.end(); iter1++, counter++)
+		{
+			hit = colide(wallArray, counter);
+			if (hit) //hit the wall
+			{
+
+				if (direction == 0) //move up
+				{
+					can_move_up = false;
+					sprite.move(0, 1 * playerspeed);
+				}
+				else if (direction == 2) //move down
+				{
+					can_move_down = false;
+					sprite.move(0, -1 * playerspeed);
+				}
+				else if (direction == 1) //move left
+				{
+					can_move_left = false;
+					sprite.move(1 * playerspeed, 0);
+				}
+				else if (direction == -1) //move right
+				{
+					can_move_right = false;
+					sprite.move(-1 * playerspeed, 0);
+				}
+			}
+		}
+	}
+
+	void didwin(std::vector<wall> winArray)
+	{
+		std::vector<wall>::const_iterator iter1;
+		int counter = 0;
+		for (iter1 = winArray.begin(); iter1 != winArray.end(); iter1++, counter++)
+		{
+			win = colide(winArray, counter);
+		}
+	}
+
+	void dead(std::vector<wall> lavaArray)
+	{
+		std::vector<wall>::const_iterator iter1;
+		int counter = 0;
+		for (iter1 = lavaArray.begin(); iter1 != lavaArray.end(); iter1++, counter++)
+		{
+			alive = colide(lavaArray, counter);
+			if (alive)
+				alive = false;
+		}
+	}
+
+	void move(std::vector<wall> wallArray, std::vector<wall> winArray, std::vector<wall> lavaArray) //,lava array,win array
+	{
+		can_move(wallArray);
+		dead(lavaArray);
+		if (alive)
+			;
+		else
+		{
+			return; //died
+		}
+		didwin(winArray);
+		if (win)
+		{
+			return; //win
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		{
+			direction = 2;
+
+			can_move(wallArray);
+			if (can_move_down)
+			{
+				sprite.move(0, 1 * playerspeed);
+				sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
+			}
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		{
+			direction = 0;
+			can_move(wallArray);
+			if (can_move_up)
+			{
+				sprite.move(0, -1 * playerspeed);
+				sprite.setTextureRect(sf::IntRect(32, 0, 32, 32));
+			}
+		}
+
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		{
+			direction = 1;
+			can_move(wallArray);
+			if (can_move_left)
+			{
+				sprite.move(-1 * playerspeed, 0);
+				sprite.setTextureRect(sf::IntRect(64, 0, 32, 32));
+			}
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		{
+			direction = -1;
+			can_move(wallArray);
+			if (can_move_right)
+			{
+				sprite.move(1 * playerspeed, 0);
+				sprite.setTextureRect(sf::IntRect(96, 0, 32, 32));
+			}
+		}
+		can_move_down = true;
+		can_move_up = true;
+		can_move_right = true;
+		can_move_left = true;
+	}
 };
 
 #endif
-
