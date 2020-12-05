@@ -1,50 +1,36 @@
+#include <SFML/Graphics.hpp>
 #include <iostream>
-#define using namespace std;
+#include "entity.h"
+#include "MapLoad.h"
 
 #ifndef PLAYER_H
 #define PLAYER_H
 
-class player 
+class player : public Entity
 {
-    public:
-   
-        sf::Sprite player_entity;
-        sf::Texture player_texture;
+private:
+	int direction;
+	bool can_move_up, can_move_down, can_move_right, can_move_left;
+	bool alive;
+	bool win;
+	int playerspeed;
 
-        bool alive;
+public:
+	player();
 
-        player() 
-        {
-            player_texture.loadFromFile("BlopSheet.png");
-            player_entity.setTexture(player_texture);
-            player_entity.setTextureRect(sf::IntRect(0, 0, 32, 32));
-            player_entity.setPosition(64 * 7 + 16, 64 * 1 + 16);
-        }
+	bool colide(std::vector<wall> Array, int counter);
 
-        void move() 
-        {
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-            {
-                player_entity.move(0, .25);
-                player_entity.setTextureRect(sf::IntRect(0, 0, 32, 32));
-            }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-            {
-                player_entity.move(0, -.25);
-                player_entity.setTextureRect(sf::IntRect(32, 0, 32, 32));
-            }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-            {
-                player_entity.move(-.25, 0);
-                player_entity.setTextureRect(sf::IntRect(64, 0, 32, 32));
-            }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-            {
-                player_entity.move(.25, 0);
-                player_entity.setTextureRect(sf::IntRect(96, 0, 32, 32));
-            }
-        }
+	void can_move(std::vector<wall> wallArray);
+
+	void didwin(std::vector<wall> winArray);
+
+	bool getWin();
+
+	void dead(std::vector<wall> lavaArray);
+
+	bool getAlive();
+
+	void move(std::vector<wall> wallArray, std::vector<wall> winArray, std::vector<wall> lavaArray);
 };
 
 #endif
-
