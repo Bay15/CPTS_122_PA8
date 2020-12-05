@@ -3,6 +3,10 @@
 
 #include <SFML/Graphics.hpp>
 
+//	Enity
+//	used in wall class, used in player class
+//	used for a base of what things have
+//	
 class Entity
 {
 private:
