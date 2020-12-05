@@ -23,19 +23,19 @@ public:
 
 	void makeBackground(sf::RenderWindow& window, int BGnum);
 
-	bool checkIfEnd(sf::RenderWindow& window, bool Alive, bool Won)
+	bool checkIfEnd(sf::RenderWindow& window, bool Alive, bool Won) //checks if the game has ended
 	{
-		if (Won)
+		if (Won) //if the player won
 		{
-			makeBackground(window, 3);
+			makeBackground(window, 3); //make winning screen
 			return true;
 		}
-		if (!Alive)
+		if (!Alive) //if the player died
 		{
-			makeBackground(window, 4);
+			makeBackground(window, 4); //make loss screen
 			return true;
 		}
-		else
+		else //if not return false
 		{
 			return false;
 		}
