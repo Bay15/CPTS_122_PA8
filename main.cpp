@@ -24,6 +24,8 @@ int main()
     std::vector<std::vector<bool>> move(height, std::vector<bool>(width));
     std::vector<std::vector<int>> it_is(height, std::vector<int>(width));
 
+    
+    //ray is a pre made map it is a 12 by 16 map the 14,18 are used for built in boarders(win and spawn are also built in
     int ray[1000] = {
         1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
         1,1,1,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,
@@ -45,23 +47,23 @@ int main()
         for (int j = 0; j < width; j++)
         {
             move[i][j] = true;
-            it_is[i][j] = ray[j + width * i];
+            it_is[i][j] = ray[j + width * i];//feeds from pre-set into it_is
         }
     }
 
-    for (int i = 0; i < height; i++)
+    for (int i = 0; i < height; i++)//itterate through height
     {
-        for (int j = 0; j < width; j++)
+        for (int j = 0; j < width; j++)//itterate through width
         {
-            if (i == 1 && j == 1)
+            if (i == 1 && j == 1)//place start
                 level.push_back(4);
-            else if (i == (height - 2) && j == (width - 2))
+            else if (i == (height - 2) && j == (width - 2))//place win
                 level.push_back(2);
-            else if (0 == i || 0 == j || i == (height - 1) || j == (width - 1))
+            else if (0 == i || 0 == j || i == (height - 1) || j == (width - 1))//place the edge walls
                 level.push_back(0);
             else
             {
-                level.push_back(it_is[i][j]);
+                level.push_back(it_is[i][j]);//filling in level from it_is
             }
         }
     }
@@ -113,8 +115,8 @@ int main()
                 window.setView(view2);
                 player1.move(wallArray, winArray, lavaArray, view2);
             }
-            window.draw(map);
-            window.draw(player1.sprite);
+            window.draw(map);//draws map
+            window.draw(player1.sprite);//draws sprite
 
             if (endGame.checkIfEnd(window, player1.getAlive(), player1.getWin()))
             {
