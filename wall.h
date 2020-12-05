@@ -6,7 +6,7 @@
 #include "entity.h"
 
 
-class wall : public Entity
+class wall : public Entity //class for the wall derrived from entity
 {
 public:
 	wall();
