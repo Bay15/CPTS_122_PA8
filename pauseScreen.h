@@ -3,77 +3,41 @@
 #define pauseScreen_h
 
 #include <SFML/Graphics.hpp>
-#include "mainScreen.h"
+#include "Screen.h"
+#include <time.h>
 
-class pauseScreen : public mainScreen 
+class pauseScreen : public Screen 
 {
 private:
 	bool pauseGame;
 	bool exitGame;
 public:
-	pauseScreen(int BGnum = 2) : mainScreen(BGnum) 
+	/*************************************************************
+	* Function: pauseScreen(constructor) -- Public
+	* Description: Creates a constructor for a pauseScreen object that will
+			  create a background sprite
+	* Returns: n/a
+	* Preconditions: Must be background that is at least 1024,768
+				Must have a int input
+	* Postconditions: a pauseScreen object is created
+	*************************************************************/
+	pauseScreen(int BGnum = 2) : Screen(BGnum) 
 	{
 		pauseGame = false;
 		exitGame = false;
 	}
 
-	void setPause(bool inUse)
-	{
-		pauseGame = inUse;
-	}
-	void setExit(bool inUse)
-	{
-		exitGame = inUse;
-	}
+	//Setter and Getter for pauseGame (bool)
+	void setPause(bool inUse);
+	bool checkIfPaused();
 
-	bool checkIfPaused()
-	{
-		return pauseGame;
-		
-	}
 
-	bool checkIfExit()
-	{
-		return exitGame;
-	}
-	void makePauseScreen(sf::RenderWindow& window)
-	{
-		mainScreen::setBG(2);
-		mainScreen::makeBackground(window);
-	}
+	//Setter and Getter for exitGame (bool)
+	void setExit(bool inUse);
+	bool checkIfExit();
 
-	bool pauseScreenGame(sf::RenderWindow& window)
-	{
-		if (!pauseGame && sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-		{
-			pauseGame = true;
-			exitGame = false;
-			return pauseGame;
-		}
-		else if (pauseGame)
-		{
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-			{
-				pauseGame = false;
-				exitGame = false;
-			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-			{
-				pauseGame = false;
-				exitGame = true;
-			}
-			else
-			{
-				return pauseGame;
-			}
-		}
-		else
-		{
-			pauseGame = false;
-			exitGame = false;
-		}
-		return pauseGame;
-	}
+	//Manages the Pause Screen
+	bool pauseScreenGame(sf::RenderWindow& window);
 };
 
 

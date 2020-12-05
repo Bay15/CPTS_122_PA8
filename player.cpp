@@ -13,7 +13,23 @@ player::player()
 	can_move_left = true;
 	alive = true;
 	win = false;
-	playerspeed = 16;
+	playerspeed = 4;
+}
+
+void player::resetPlayer()
+{
+	texture.loadFromFile("Resources/BlobSheet.png");
+	sprite.setTexture(texture);
+	sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
+	sprite.setPosition(64 + 16, 64 + 16); //starting position
+	direction = -1;
+	can_move_down = true;
+	can_move_up = true;
+	can_move_right = true;
+	can_move_left = true;
+	alive = true;
+	win = false;
+	playerspeed = 4;
 }
 
 bool player::colide(std::vector<wall> Array, int counter)
@@ -24,7 +40,7 @@ bool player::colide(std::vector<wall> Array, int counter)
 	return false;
 }
 
-void player::can_move(std::vector<wall> wallArray)
+void player::can_move(std::vector<wall> wallArray, sf::View& view1)
 {
 	bool hit;
 	int counter = 0;
@@ -39,21 +55,25 @@ void player::can_move(std::vector<wall> wallArray)
 			{
 				can_move_up = false;
 				sprite.move(0, 1 * playerspeed);
+				view1.move(0, 1 * playerspeed);
 			}
 			else if (direction == 2) //move down
 			{
 				can_move_down = false;
 				sprite.move(0, -1 * playerspeed);
+				view1.move(0, - 1 * playerspeed);
 			}
 			else if (direction == 1) //move left
 			{
 				can_move_left = false;
 				sprite.move(1 * playerspeed, 0);
+				view1.move(1 * playerspeed,0);
 			}
 			else if (direction == -1) //move right
 			{
 				can_move_right = false;
 				sprite.move(-1 * playerspeed, 0);
+				view1.move(-1 * playerspeed,0);
 			}
 		}
 	}
@@ -83,6 +103,10 @@ void player::dead(std::vector<wall> lavaArray)
 		alive = colide(lavaArray, counter);
 		if (alive)
 			alive = false;
+		else
+		{
+			alive = true;
+		}
 	}
 }
 
@@ -91,9 +115,9 @@ bool player::getAlive()
 	return alive;
 }
 
-void player::move(std::vector<wall> wallArray, std::vector<wall> winArray, std::vector<wall> lavaArray) //,lava array,win array
+void player::move(std::vector<wall> wallArray, std::vector<wall> winArray, std::vector<wall> lavaArray, sf::View& view1) //,lava array,win array
 {
-	can_move(wallArray);
+	can_move(wallArray,view1);
 	dead(lavaArray);
 	if (alive)
 		;
@@ -111,20 +135,22 @@ void player::move(std::vector<wall> wallArray, std::vector<wall> winArray, std::
 	{
 		direction = 2;
 
-		can_move(wallArray);
+		can_move(wallArray,view1);
 		if (can_move_down)
 		{
 			sprite.move(0, 1 * playerspeed);
+			view1.move(0, 1 * playerspeed);
 			sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
 		}
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
 		direction = 0;
-		can_move(wallArray);
+		can_move(wallArray,view1);
 		if (can_move_up)
 		{
 			sprite.move(0, -1 * playerspeed);
+			view1.move(0, -1 * playerspeed);
 			sprite.setTextureRect(sf::IntRect(32, 0, 32, 32));
 		}
 	}
@@ -132,20 +158,22 @@ void player::move(std::vector<wall> wallArray, std::vector<wall> winArray, std::
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
 		direction = 1;
-		can_move(wallArray);
+		can_move(wallArray,view1);
 		if (can_move_left)
 		{
 			sprite.move(-1 * playerspeed, 0);
+			view1.move(-1 * playerspeed,0);
 			sprite.setTextureRect(sf::IntRect(64, 0, 32, 32));
 		}
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		direction = -1;
-		can_move(wallArray);
+		can_move(wallArray,view1);
 		if (can_move_right)
 		{
 			sprite.move(1 * playerspeed, 0);
+			view1.move(1 * playerspeed,0);
 			sprite.setTextureRect(sf::IntRect(96, 0, 32, 32));
 		}
 	}

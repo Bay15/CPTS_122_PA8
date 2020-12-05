@@ -18,9 +18,11 @@ private:
 public:
 	player();
 
+	void resetPlayer();
+
 	bool colide(std::vector<wall> Array, int counter);
 
-	void can_move(std::vector<wall> wallArray);
+	void can_move(std::vector<wall> wallArray, sf::View& view1);
 
 	void didwin(std::vector<wall> winArray);
 
@@ -30,7 +32,7 @@ public:
 
 	bool getAlive();
 
-	void move(std::vector<wall> wallArray, std::vector<wall> winArray, std::vector<wall> lavaArray);
+	void move(std::vector<wall> wallArray, std::vector<wall> winArray, std::vector<wall> lavaArray, sf::View& view1);
 };
 
 #endif

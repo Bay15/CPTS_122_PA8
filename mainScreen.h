@@ -12,18 +12,27 @@ private:
 	sf::Sprite startButton;
 	sf::Sprite howToButton;
 	sf::Sprite exitButton;
-protected:
+
+	//Bools to know whether these are happening or not
 	bool startGame;
 	bool howToPage;
 public:
-
+	/*************************************************************
+	* Function: mainScreen(constructor) -- Public
+	* Description: Creates a constructor for a mainScreen object that will
+			  create a background sprite
+	* Returns: n/a
+	* Preconditions: Must be background that is at least 1024,768
+				Must have a int input
+	* Postconditions: a mainScreen object is created
+	*************************************************************/
 	mainScreen(int BGnum = 0) : Screen(BGnum)
 	{
 		buttonSet.loadFromFile("Resources/ButtonSet.png");
 
 		startButton.setTexture(buttonSet);
 		startButton.setTextureRect(sf::IntRect(0, 0, 384, 64));
-		startButton.setPosition(320,512);
+		startButton.setPosition(320, 512);
 
 		howToButton.setTexture(buttonSet);
 		howToButton.setTextureRect(sf::IntRect(0, 64, 384, 64));
@@ -37,103 +46,22 @@ public:
 		howToPage = false;
 	}
 
-	void makeActive(sf::RenderWindow& window)
-	{
-		if (startButton.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
-		{
-			startButton.setTextureRect(sf::IntRect(384, 0, 384, 64));
-		}
-		else
-		{
-			startButton.setTextureRect(sf::IntRect(0, 0, 384, 64));
-		}
-		if (howToButton.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
-		{
-			howToButton.setTextureRect(sf::IntRect(384, 64, 384, 64));
-		}
-		else
-		{
-			howToButton.setTextureRect(sf::IntRect(0, 64, 384, 64));
-		}
-		if (exitButton.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
-		{
-			exitButton.setTextureRect(sf::IntRect(384, 128, 384, 64));
-		}
-		else
-		{
-			exitButton.setTextureRect(sf::IntRect(0, 128, 384, 64));
-		}
-	}
 
-	void makeMainScreen(sf::RenderWindow& window)
-	{
-		window.draw(startButton);
-		window.draw(howToButton);
-		window.draw(exitButton);
-	}
+	void makeActive(sf::RenderWindow& window);
 
-	bool checkIfStart(sf::RenderWindow& window)
-	{
-		if (!startGame)
-		{
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			{
-				if (startButton.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
-				{
-					startGame = true;
-				}
-				else
-				{
-					return false;
-				}
-			}
-		}
-		return startGame;
-	}
+	void makeBackground(sf::RenderWindow& window, int BGnum);
 
-	void setStart(bool inUse)
-	{
-		startGame = inUse;
-	}
+	void makeMainScreen(sf::RenderWindow& window);
 
-	bool checkIfHowTo(sf::RenderWindow &window)
-	{
-		if (!startGame)
-		{
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			{
-				if (howToButton.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
-				{
-					howToPage = true;
-				}
-				else
-				{
-					howToPage = false;
-				}
-			}
-		}
-		return howToPage;
-	}
+	bool checkIfStart(sf::RenderWindow& window);
 
-	void setHowTo(bool inUse)
-	{
-		howToPage = inUse;
-	}
+	void setStart(bool inUse);
 
-	bool checkIfExit(sf::RenderWindow &window)
-	{
-		if (!startGame)
-		{
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			{
-				if (exitButton.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
-				{
-					return true;
-				}
-			}
-		}
-		return false;
-	}
+	bool checkIfHowTo(sf::RenderWindow& window);
+
+	void setHowTo(bool inUse);
+
+	bool checkIfExit(sf::RenderWindow& window);
 
 };
 
