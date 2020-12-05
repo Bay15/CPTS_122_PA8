@@ -1,21 +1,14 @@
 #include "player.h"
+//player
 
+//	constructor
+//	makes an object
 player::player() //constructor
 {
-	texture.loadFromFile("Resources/BlobSheet.png"); //establishes the textrue position and allows the player to initially move.
-	sprite.setTexture(texture);
-	sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
-	sprite.setPosition(64 + 16, 64 + 16); //starting position
-	direction = -1;
-	can_move_down = true;
-	can_move_up = true;
-	can_move_right = true;
-	can_move_left = true;
-	alive = true;
-	win = false;
-	playerspeed = 4;
+	resetPlayer()
 }
 
+//	resets the players stuff
 void player::resetPlayer() //resets the player information 
 {
 	texture.loadFromFile("Resources/BlobSheet.png");
@@ -32,6 +25,8 @@ void player::resetPlayer() //resets the player information
 	playerspeed = 4;
 }
 
+//	colide
+//	this is a check for winArray(to see if died, and lavaArray, 
 bool player::colide(std::vector<wall> Array, int counter) //determines if the player is next to a wall
 {
 	if (sprite.getGlobalBounds().intersects(Array[counter].rect.getGlobalBounds())) //if the player is touching a wall return true
@@ -40,6 +35,10 @@ bool player::colide(std::vector<wall> Array, int counter) //determines if the pl
 	return false;
 }
 
+
+//	can_move
+//	this function accepts wallArray, view1
+//	this checks to see if they are in a wall and will move them back
 void player::can_move(std::vector<wall> wallArray, sf::View& view1) //determines if the player can move 
 {
 	bool hit;
@@ -79,6 +78,9 @@ void player::can_move(std::vector<wall> wallArray, sf::View& view1) //determines
 	}
 }
 
+//	didwin
+//	this function takes in array of walls/blocks
+//	and sees if the player has won;
 void player::didwin(std::vector<wall> winArray) //determines if the player won
 {
 	std::vector<wall>::const_iterator iter1; 
@@ -93,11 +95,14 @@ void player::didwin(std::vector<wall> winArray) //determines if the player won
 	}
 }
 
+//getter for win
 bool player::getWin() //retrives win status
 {
 	return win; 
 }
 
+//	dead
+//	dead is a function that checks the player is in lava
 void player::dead(std::vector<wall> lavaArray) //determines if the player is dead
 {
 	std::vector<wall>::const_iterator iter1;
@@ -115,11 +120,15 @@ void player::dead(std::vector<wall> lavaArray) //determines if the player is dea
 	}
 }
 
+// getter for alive
 bool player::getAlive() //retrives the alive status
 {
 	return alive;
 }
 
+//	move
+//	
+//	this moves the character and sees if they are dead or have won,
 void player::move(std::vector<wall> wallArray, std::vector<wall> winArray, std::vector<wall> lavaArray, sf::View& view1) //move function
 {
 	can_move(wallArray,view1);
