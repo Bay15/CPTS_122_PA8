@@ -6,12 +6,12 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-class player : public Entity
+class player : public Entity //class that contains all the information about the player
 {
 private:
-	int direction;
-	bool can_move_up, can_move_down, can_move_right, can_move_left;
-	bool alive;
+	int direction; 
+	bool can_move_up, can_move_down, can_move_right, can_move_left; 
+	bool alive; 
 	bool win;
 	int playerspeed;
 
