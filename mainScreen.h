@@ -26,7 +26,7 @@ public:
 				Must have a int input
 	* Postconditions: a mainScreen object is created
 	*************************************************************/
-	mainScreen(int BGnum = 0) : Screen(BGnum)
+	mainScreen(int BGnum = 0) : Screen(BGnum) //cosntructor (sets the buttons and text in their rightful place for the main screen)
 	{
 		buttonSet.loadFromFile("Resources/ButtonSet.png");
 
