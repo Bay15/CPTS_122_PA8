@@ -64,7 +64,7 @@ void mainScreen::makeBackground(sf::RenderWindow& window, int BGnum)
 * Preconditions: Must be a texture attached to all the sprites 
 * Postconditions: a mainScreen is drawn
 *************************************************************/
-void mainScreen::makeMainScreen(sf::RenderWindow& window)
+void mainScreen::makeMainScreen(sf::RenderWindow& window) //draws the mainscreen to the window
 {
 	makeBackground(window, 0);
 	window.draw(startButton);
@@ -72,7 +72,7 @@ void mainScreen::makeMainScreen(sf::RenderWindow& window)
 	window.draw(exitButton);
 }
 
-bool mainScreen::checkIfStart(sf::RenderWindow& window)
+bool mainScreen::checkIfStart(sf::RenderWindow& window) //check to see if the start button is pressed
 {
 	if (!startGame && !howToPage)
 	{
