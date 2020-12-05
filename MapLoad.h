@@ -7,7 +7,10 @@
 #include "entity.h"
 #include "wall.h"
 
-
+//	TileMap
+//	creates the map of  width, height size once it enters into load
+//	this fills in the wallArray, the winArray ande the lavaArray
+//	this retuens false if the textures weren't loaded
 class TileMap : public sf::Drawable, public sf::Transformable
 {
 public:
@@ -78,6 +81,7 @@ public:
 	}
 
 private:
+//	this is a virtuial draw function
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		// apply the transform
