@@ -86,6 +86,10 @@ void player::didwin(std::vector<wall> winArray) //determines if the player won
 	for (iter1 = winArray.begin(); iter1 != winArray.end(); iter1++, counter++) //sees if the player is touching the win block
 	{
 		win = colide(winArray, counter); //win is true if the player is 
+		if(win)
+		{
+			return;
+		}
 	}
 }
 
@@ -102,11 +106,12 @@ void player::dead(std::vector<wall> lavaArray) //determines if the player is dea
 	{
 		alive = colide(lavaArray, counter); //alive is set to false if the player is 
 		if (alive)
-			alive = false; //if alive is set to true set reset it to false
-		else
 		{
-			alive = true; //otherwise set it to true
-		}
+			alive = false; //if alive is set to true set reset it to false
+			return;
+		}	
+		alive = true; //otherwise set it to true
+
 	}
 }
 
