@@ -16,6 +16,7 @@ private:
 	int playerspeed;
 
 public:
+	//functions for player
 	player();
 
 	void resetPlayer();
