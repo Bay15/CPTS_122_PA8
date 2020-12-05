@@ -74,63 +74,63 @@ void mainScreen::makeMainScreen(sf::RenderWindow& window) //draws the mainscreen
 
 bool mainScreen::checkIfStart(sf::RenderWindow& window) //check to see if the start button is pressed
 {
-	if (!startGame && !howToPage)
+	if (!startGame && !howToPage) //if the game has not started and the how to page is not up
 	{
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) //if left mouse is pressed
 		{
-			if (startButton.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+			if (startButton.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) //if the mouse is over the start button
 			{
-				startGame = true;
+				startGame = true; //start game
 			}
 			else
 			{
-				return false;
+				return false; //otherwise don't 
 			}
 		}
 	}
-	return startGame;
+	return startGame; 
 }
 
-void mainScreen::setStart(bool inUse)
+void mainScreen::setStart(bool inUse) //establishes if the game has started as true or false
 {
 	startGame = inUse;
 }
 
-bool mainScreen::checkIfHowTo(sf::RenderWindow& window)
+bool mainScreen::checkIfHowTo(sf::RenderWindow& window) //check to see if the how to button is pressed
 {
-	if (!startGame && !howToPage)
+	if (!startGame && !howToPage) //if the game has not started and the how to page is not up
 	{
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) //if the left mouse is pressed
 		{
-			if (howToButton.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+			if (howToButton.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) //if the mouse is over the how to button
 			{
-				howToPage = true;
+				howToPage = true; //launch the how to page
 			}
 			else
 			{
-				howToPage = false;
+				howToPage = false; //otherwise don't 
 			}
 		}
 	}
 	return howToPage;
 }
 
-void mainScreen::setHowTo(bool inUse)
+void mainScreen::setHowTo(bool inUse)  //establishes if the how to page is launched as true or false
 {
 	howToPage = inUse;
 }
 
-bool mainScreen::checkIfExit(sf::RenderWindow& window)
+bool mainScreen::checkIfExit(sf::RenderWindow& window) //check if the exit button has been pressed
 {
-	if (!startGame && !howToPage)
+	if (!startGame && !howToPage) //if the game has not started and the how to page is not up
 	{
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) //if the left mouse is pressed
 		{
-			if (exitButton.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+			if (exitButton.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) //if the mouse is over the exit button
 			{
-				return true;
+				return true; //return true
 			}
 		}
 	}
-	return false;
+	return false; //if not return false
 }
